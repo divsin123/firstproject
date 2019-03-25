@@ -1,4 +1,0 @@
-Hello! Hope you're having a wondeful day. Now , I deleted your code. Are you angry? Do you want to beat me? Well calm down, now you're going to learn about the wonderful "undo" feature of Git. So checkout the links below to learn how to do that. Be patient, it's easy.
-
-https://stackoverflow.com/questions/4114095/how-to-revert-a-git-repository-to-a-previous-commit
-https://github.blog/2015-06-08-how-to-undo-almost-anything-with-git/
