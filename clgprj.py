@@ -23,24 +23,6 @@ class Notepad:
         
         thisScrollBar = Scrollbar(thisTextArea)  
         file = None
-
-        def font(self):
-                self.textfont=StringVar()
-                #self.text_font.set("Times")
-
-                
-                self.font={}
-                for font in ("Arial","Consoles","Courier","tahoma"):
-                        self.fonts[font]=tkinter.font.Font(font=font)
-                        font_menu.add_radiobutton(label=font,variable=self.text_font,command=self.change_font)
-                self.thisMenuBar.add_cascade(lable="font",menu=self.thisfontMenu)
-                root.config(menu=the_menu)
-                def change_font(self):
-                        self.text_area.config(font=self.fonts[self.text_font.get()])
-
-                '''self.tkFont.Font(family="Times",size=10,weight=BOLD)
-                self.tkFont.Font(family="Helvetica",size=10,weight=BOLD,slant=ITALIC)
-                self.tkFont.Font(family="Symbol",size=8,weight=BOLD)'''
         
                 
 
@@ -104,8 +86,13 @@ class Notepad:
                 #self.thisMenuBar.add_cascade(label="Font",menu=self.thisFontMenu)
                 self.thisFontMenu.add_command(label="x", command=self.changeFont1)
                 #self.thisMenuBar.add_cascade(label="Font",menu=self.thisFontMenu)
-                self.thisFontMenu.add_command(label="Arial", command=self.changeFont2       )
+                self.thisFontMenu.add_command(label="Arial", command=self.changeFont)
                 self.thisMenuBar.add_cascade(label="Font",menu=self.thisFontMenu)
+
+
+
+                self.thisFormatMenu.add_command(label="style", command=self.wid)
+                self.thisMenuBar.add_cascade(label="Font1",menu=self.thisFormatMenu)
                 
                 
                 self.root.config(menu=self.thisMenuBar) 
@@ -183,16 +170,20 @@ class Notepad:
         def copy(self): 
                 self.thisTextArea.event_generate("<<Copy>>") 
 
-        def paste(self): 
+        def paste(self):
                 self.thisTextArea.event_generate("<<Paste>>")
-        def changeFont(self):
-                self.bold_font = Font(family="Verdana", size=14, weight="bold")#Applied bold just to see the difference.Otherwise use weight="normal"
+
+
+        def changeFont(self,*y):
+                
+                y1=int(y[2])
+                self.bold_font = Font(family="x", size=y1, weight="normal")#Applied bold just to see the difference.Otherwise use weight="normal"
                 try:
                         print ("Inside try")
-                        self.thisTextArea.tag_add("Verdana", "sel.first", "sel.last")
+                        self.thisTextArea.tag_add("x", "sel.first", "sel.last")
                         print(self.thisTextArea.selection_get())
-                        self.thisTextArea.tag_configure("Verdana",font=self.bold_font)
-                        print ("Font chagned")
+                        self.thisTextArea.tag_configure("x",font=self.bold_font)
+                        print ("Prob is Font chagned")
                 except tkinter.TclError:
                         print ("Exception")
         def changeFont1(self):
@@ -215,14 +206,58 @@ class Notepad:
                         print ("Font chagned")
                 except tkinter.TclError:
                         print ("Exception")
-        
+
+        def wid(self):
+                 selected=True #Checks if there is any selected text when the function was called
+                 try:
+                        self.thisTextArea.tag_add("highlight","sel.first","sel.last")
+                        self.thisTextArea.tag_configure("highlight",background="#057ad7", foreground="white") #change the color to something you want
+                 except tkinter.TclError:
+                        selected=False
+
+                 root1=Toplevel(self.root)
+                 var = StringVar(root1)
+                 var1=IntVar(root1)
+                 var.set("font")# initial value
+                 var1.set("14")
+                 option1=OptionMenu(root1,var1,"12","14","16","18","20","22","24")
+                 option1.pack()
+
+                 option = OptionMenu(root1, var, "Verdana", "Arial", "Modern")
+                 option.pack()
+
+                 def ok():
+                         
+                    x=var.get()
+                    y=var1.get()
+                    self.changeFont(self,x,y)
+                    root1.destroy()
+
+
+
+
+                 button = Button(root1, text="OK", command=ok)
+                 button.pack()
+
+
+                 def run1(self):
+                    self.root1.mainloop()
 
         def run(self): 
- 
-                self.root.mainloop() 
+
+                        self.root.mainloop() 
 
 
 notepad = Notepad(width=600,height=400) 
 notepad.run()
+
+#notepad = Notepad(width=600,height=400) 
+#notepad.run1()
+
+
+
+
+
+
 
 
