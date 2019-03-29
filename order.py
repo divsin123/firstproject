@@ -198,6 +198,7 @@ class Notepad:
                         print ("Inside try")
                         self.thisTextArea.tag_add("Verdana", "sel.first", "sel.last")
                         print(self.thisTextArea.selection_get())
+                        print(self.thisTextArea )
                         self.thisTextArea.tag_configure("Verdana",font=self.bold_font)
                         print ("Font chagned")
                 except tkinter.TclError:
@@ -226,7 +227,13 @@ class Notepad:
         
         def wid(self):
             
-            root1=Tk()
+            selected=True #Checks if there is any selected text when the function was called
+            try:
+                self.thisTextArea.tag_add("highlight","sel.first","sel.last")
+                self.thisTextArea.tag_configure("highlight",background="#057ad7", foreground="white") #change the color to something you want
+            except tkinter.TclError:
+                    selected=False
+            root1=Toplevel(self.root) #using Toplevel to instead of creating a new root
 
 
             var = StringVar(root1)
@@ -234,20 +241,27 @@ class Notepad:
 
             option = OptionMenu(root1, var, "Vardana", "Arial", "Modern", "four")
             option.pack()
-
+            
             #
             # test stuff
 
             def ok():
                 print "value is", var.get()
-                root1.quit()
+                #add other logic if the text was not selected. Permanently cahnge fornnt
+                if selected:
+                    if var.get() == "Vardana":
+                        self.changeFont()
+                    elif var.get() == "Arial":
+                        self.changeFont2()
+                    elif var.get() == "Modern":
+                        self.changeFont1()
 
+                root1.destroy()
+                self.thisTextArea.tag_remove("highlight","sel.first","sel.last")
             button = Button(root1, text="OK", command=ok)
             button.pack()
 
 
-            def run1(self):
-                self.root1.mainloop()
 
         def run(self): 
  
