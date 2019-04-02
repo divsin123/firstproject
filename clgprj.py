@@ -76,18 +76,7 @@ class Notepad:
                  
                 self.thisEditMenu.add_command(label="Paste",command=self.paste)                
                 
-                self.thisMenuBar.add_cascade(label="Edit",menu=self.thisEditMenu)        
-
-                                 
-                #self.thisFormatMenu.add_command(label="font",command=self.w)                            
-                
-                #self.thisMenuBar.add_cascade(label="Format",menu=self.thisFormatMenu)
-                self.thisFontMenu.add_command(label="Verdana", command=self.changeFont)
-                #self.thisMenuBar.add_cascade(label="Font",menu=self.thisFontMenu)
-                self.thisFontMenu.add_command(label="x", command=self.changeFont1)
-                #self.thisMenuBar.add_cascade(label="Font",menu=self.thisFontMenu)
-                self.thisFontMenu.add_command(label="Arial", command=self.changeFont)
-                self.thisMenuBar.add_cascade(label="Font",menu=self.thisFontMenu)
+                self.thisMenuBar.add_cascade(label="Edit",menu=self.thisEditMenu)
 
 
 
@@ -176,7 +165,7 @@ class Notepad:
 
         def changeFont(self,*y):
                 
-                y1=int(y[2])
+                y1=int(y[1])
                 self.bold_font = Font(family="x", size=y1, weight="normal")#Applied bold just to see the difference.Otherwise use weight="normal"
                 try:
                         print ("Inside try")
@@ -184,29 +173,9 @@ class Notepad:
                         print(self.thisTextArea.selection_get())
                         self.thisTextArea.tag_configure("x",font=self.bold_font)
                         print ("Prob is Font chagned")
+                        self.thisTextArea.tag_remove("highlight","sel.first","sel.last")
                 except tkinter.TclError:
                         print ("Exception")
-        def changeFont1(self):
-                self.bold_font = Font(family="Verdana", size=14, weight="bold")#Applied bold just to see the difference.Otherwise use weight="normal"
-                try:
-                        print ("Inside try")
-                        self.thisTextArea.tag_add("Verdana", "sel.first", "sel.last")
-                        print(self.thisTextArea.selection_get())
-                        self.thisTextArea.tag_configure("Verdana",font=self.bold_font)
-                        print ("Font chagned")
-                except tkinter.TclError:
-                        print ("Exception")
-        def changeFont2(self):
-                self.italic_font = Font(family="Arial", size=24, weight="normal")#Applied bold just to see the difference.Otherwise use weight="normal"
-                try:
-                        print ("Inside try")
-                        self.thisTextArea.tag_add("Arial", "sel.first", "sel.last")
-                        print(self.thisTextArea.selection_get())
-                        self.thisTextArea.tag_configure("Arial",font=self.italic_font)
-                        print ("Font chagned")
-                except tkinter.TclError:
-                        print ("Exception")
-
         def wid(self):
                  selected=True #Checks if there is any selected text when the function was called
                  try:
@@ -230,10 +199,12 @@ class Notepad:
                          
                     x=var.get()
                     y=var1.get()
-                    self.changeFont(self,x,y)
+                    #y1=int(y[1])
+                    self.changeFont(x,y)
+                    
+                    
                     root1.destroy()
-
-
+                    
 
 
                  button = Button(root1, text="OK", command=ok)
@@ -250,9 +221,6 @@ class Notepad:
 
 notepad = Notepad(width=600,height=400) 
 notepad.run()
-
-#notepad = Notepad(width=600,height=400) 
-#notepad.run1()
 
 
 
