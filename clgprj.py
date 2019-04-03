@@ -164,13 +164,13 @@ class Notepad:
 
 
         def changeFont(self,*y):
-                
+                x1=y[0]
                 y1=int(y[1])
-                self.bold_font = Font(family="x", size=y1,weight="normal")#Applied bold just to see the difference.Otherwise use weight="normal"
+                self.bold_font = Font(family=x1, size=y1,weight="normal")#Applied bold just to see the difference.Otherwise use weight="normal"
                 try:
-                        tagname="x"+str(y1)
+                        tagname=x1+str(y1)
                         print ("Inside try")
-                        print ("value of y is",y1)
+                        print ("value of x1 & y is%s%d"%(x1,y1))
                         self.thisTextArea.tag_add(tagname,"sel.first","sel.last")
                         print(self.thisTextArea.selection_get())
                         self.thisTextArea.tag_configure(tagname,font=self.bold_font)
@@ -193,7 +193,11 @@ class Notepad:
                  option1=OptionMenu(root1,var1,"12","14","16","18","20","22","24","26","28","30","32")
                  option1.pack()
 
-                 option = OptionMenu(root1, var, "Verdana", "Arial", "Modern")
+                 option = OptionMenu(root1, var, "Verdana", "Arial", "Modern","@Microsoft JhengHei Light",
+                                     "Microsoft JhengHei UI Light", "@Microsoft JhengHei UI Light", "Microsoft New Tai Lue","Californian FB","Centaur","Chiller","Colonna MT","Cooper Black",
+                                     "Footlight MT Light","Harlow Solid Italic","Harrington","High Tower Text","Jokerman", "Kunstler Script", "Lucida Bright",
+                                     "Niagara Solid",
+                                     "Old English Text MT",)
                  option.pack()
 
                  def ok():
