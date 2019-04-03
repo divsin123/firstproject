@@ -166,14 +166,15 @@ class Notepad:
         def changeFont(self,*y):
                 
                 y1=int(y[1])
-                self.bold_font = Font(family="x", size=y1, weight="normal")#Applied bold just to see the difference.Otherwise use weight="normal"
+                self.bold_font = Font(family="x", size=y1,weight="normal")#Applied bold just to see the difference.Otherwise use weight="normal"
                 try:
+                        tagname="x"+str(y1)
                         print ("Inside try")
-                        self.thisTextArea.tag_add("x", "sel.first", "sel.last")
+                        print ("value of y is",y1)
+                        self.thisTextArea.tag_add(tagname,"sel.first","sel.last")
                         print(self.thisTextArea.selection_get())
-                        self.thisTextArea.tag_configure("x",font=self.bold_font)
+                        self.thisTextArea.tag_configure(tagname,font=self.bold_font)
                         print ("Prob is Font chagned")
-                        self.thisTextArea.tag_remove("highlight","sel.first","sel.last")
                 except tkinter.TclError:
                         print ("Exception")
         def wid(self):
@@ -189,7 +190,7 @@ class Notepad:
                  var1=IntVar(root1)
                  var.set("font")# initial value
                  var1.set("14")
-                 option1=OptionMenu(root1,var1,"12","14","16","18","20","22","24")
+                 option1=OptionMenu(root1,var1,"12","14","16","18","20","22","24","26","28","30","32")
                  option1.pack()
 
                  option = OptionMenu(root1, var, "Verdana", "Arial", "Modern")
@@ -201,12 +202,10 @@ class Notepad:
                     y=var1.get()
                     #y1=int(y[1])
                     self.changeFont(x,y)
-                    
-                    
                     root1.destroy()
+                    self.thisTextArea.tag_remove("highlight","sel.first","sel.last")
                     
-
-
+                
                  button = Button(root1, text="OK", command=ok)
                  button.pack()
 
